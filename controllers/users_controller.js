@@ -14,6 +14,14 @@ module.exports.signIn = function (req, res){
     })
 }
 
+//render the profile page
+module.exports.profile = function (req, res){
+    return res.render('user_profile' , {
+        title: "Codeial | Profile-Page"
+    })
+}
+
+
 // get the sign  up data
 module.exports.create= function (req, res){
     if (req.body.password != req.body.confirm_password){
@@ -39,25 +47,41 @@ module.exports.create= function (req, res){
 }
 
 //sign in and create the session for the user
-module.exports.createSession = function (req, res){
+module.exports.createSession = async function (req, res){
     //steps to authenticate
     //find the user
-    user.findOne({email : req.body.email} , function(err , user){
-        if(err){console.log('error in finding user in signing in'); return}
-    })
-    //handle user found
-    if(user){
-        //handle passwords which doesn't match
-        if(user.password != req.body.password){
+    try {
+        const currentUser =  await User.findOne({email : req.body.email});   //handle user found
+        console.log(currentUser);
+
+        if(currentUser){
+            if(currentUser.password != req.body.password){
+                return res.redirect('back');
+            }
+            //handle session creation
+            res.cookie('user_id' , currentUser.id);
+            return res.redirect('/users/profile');
+        }else {
+            console.log('nahi mila user');
             return res.redirect('back');
         }
-        //handle session creation
-        res.cookie('user_id' , user.id);
-        return res.redirect('/users/profile');
-    }else{
-        //handle user not found
-        return res.redirect('back');
-
+    }catch(error){
+        console.log('Error' , error);
     }
+
+    
+    // if(user){
+    //     //handle passwords which doesn't match
+    //     if(user.password != req.body.password){
+    //         return res.redirect('back');
+    //     }
+    //     //handle session creation
+    //     res.cookie('user_id' , user.id);
+    //     return res.redirect('/users/profile');
+    // }else{
+    //     //handle user not found
+    //     return res.redirect('back');
+
+    // }
    
 }
