@@ -14,27 +14,28 @@ module.exports.signIn = function (req, res){
     })
 }
 
-// get the sign  up data
-module.exports.create= function (req, res){
-    if (req.body.password != req.body.confirm_password){
-        return res.redirect('back');
-    }
-
-
-    User.findOne({email : req.body.email} , function (err, user){
-        if(err){console.log('error in finding user in signing up'); return}
-
-        if(!user){
-            User.create(req.body , function (err, user){
-                if(err){console.log("error in creating user while signing up"); return}
-
-                return res.redirect ('/users/sign-in');
-            })
-        }else{
+// get the sign up data
+module.exports.create= async function (req, res){
+    try{
+        if (req.body.password != req.body.confirm_password){
+            alert("Check the password!");
             return res.redirect('back');
-
         }
-    })
+        const CurrentUser = await User.findOne({email: req.body.email});
+        if(!CurrentUser){
+            const newUser = User.create(req.body);
+            res.redirect('/users/sign-in');
+            alert('Signup successful!');
+        }else {
+            alert('Email is already exist...')
+            return res.redirect('back');
+           
+        }
+    
+    }catch(err){
+        console.log('Error' , err);
+    }
+    
     
 }
 
