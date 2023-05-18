@@ -1,0 +1,12 @@
+#nav-bar{
+    background-color: rgb(228, 248, 117);
+    color: blue;
+    display:flex;
+    /* justify-content: space-between; */
+    padding:10px;
+    list-style: none;
+}
+#nav-bar li {
+    margin: 0 10px;
+}
+

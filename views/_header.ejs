@@ -1,13 +1,14 @@
-<header>
-  This is a header
+<link rel="stylesheet" href="/css/header.css">
 
-  <ul>
+<header>
+  <ul id = 'nav-bar'>
+    <li>Codeial</li>
+    <div id="nav-bar-setionTwo">
     <% if(locals.user){%>
     <li><%= user.name%></li>
     <li>
       <a href="/users/sign-out">Sign Out</a>
     </li>
-
     <% }else{ %>
     <li>
       <a href="/users/sign-in">Sign In</a>
@@ -15,7 +16,7 @@
     <li>
       <a href="/users/sign-up">Sign Up</a>
     </li>
-
     <% } %>
+  </div>
   </ul>
 </header>
