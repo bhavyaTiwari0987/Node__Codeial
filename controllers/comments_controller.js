@@ -15,6 +15,20 @@ module.exports.createComment = async (req, res) => {
         // Adding comment to the post
         currentPost.comments.push(newComment);
         currentPost.save();
+        if (req.xhr){
+          // Similar for comments to fetch the user's id!
+          comment = await comment.populate('user', 'name').execPopulate();
+
+          return res.status(200).json({
+              data: {
+                  comment: comment
+              },
+              message: "Post created!"
+          });
+      }
+      req.flash('success', 'Comment published!');
+
+
         res.redirect("back");
       }
     }
@@ -34,6 +48,17 @@ module.exports.destroy = async (req, res) => {
       $pull: { comments: req.params.id },
     });
     if (post) {
+      if (req.xhr){
+        return res.status(200).json({
+            data: {
+                comment_id: req.params.id
+            },
+            message: "Post deleted"
+        });
+    }
+
+
+    req.flash('success', 'Comment deleted!');
       return res.redirect("back");
     }
   } else {
