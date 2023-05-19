@@ -19,11 +19,32 @@ module.exports.signIn = function (req, res) {
     title: "Codeial | Sign In",
   });
 };
-module.exports.profile = function (req, res) {
-  return res.render("user_profile", {
-    title: "Codeial | Profile-Page",
-  });
+module.exports.profile = async function (req, res) {
+  const currentUser = await User.findById(req.params.id);
+  if(currentUser){
+    return res.render("user_profile", {
+      title: "Codeial | Profile-Page",
+      profile_user: currentUser
+    });
+  }
+ 
 };
+
+module.exports.update = async (req,res) => {
+  try{
+    if(req.user.id == req.params.id){
+      const user = await User.findByIdAndUpdate(req.params.id, req.body);
+      if(user){
+        return res.redirect('back');
+      };
+    }else{
+      return res.status(401).send('Unauthorized');
+    }
+  }catch (err){
+    console.log(err);
+  }
+  
+}
 
 
 // get the sign up data
@@ -62,3 +83,5 @@ module.exports.destroySession = function(req, res, next) {
     res.redirect('/');
   });
 }
+
+
