@@ -6,7 +6,18 @@
     </head>
     <body>
         <%- include ('_header'); %>
-        <%- body %>
+
+        <% if(flash.success && flash.success.length > 0){ %>
+            <h5>
+                <%= flash.success %>
+            </h5>    
+        <% } %>
+
+        <%= flash.test %>
+
+        <main id="layout-main">
+            <%- body %>
+        </main>
         <%- include('_footer'); %>
     </body>
 </html>
