@@ -1,36 +1,39 @@
 const Comment = require("../models/comment");
 const Post = require("../models/post");
+const commentsMailer = require("../mailer/comments_mailer");
 
 module.exports.createComment = async (req, res) => {
+
   try {
-    const currentPost = await Post.findById(req.body.post);
-    if (currentPost) {
-      const newComment = await Comment.create({
-        comment: req.body.comment,
-        user: req.user._id,
-        post: req.body.post,
-      });
-      if (newComment) {
-        console.log("new comment", newComment);
-        // Adding comment to the post
-        currentPost.comments.push(newComment);
-        currentPost.save();
+    let post = await Post.findById(req.body.post);
+
+    if (post){
+        let comment = await Comment.create({
+            comment: req.body.comment,
+            post: req.body.post,
+            user: req.user._id
+        });
+
+        post.comments.push(comment);
+        post.save();
+        
+        comment = await comment.populate(['user', 'name' , 'email'])
+        commentsMailer.newComment(comment);
         if (req.xhr){
-          // Similar for comments to fetch the user's id!
-          comment = await comment.populate('user', 'name').execPopulate();
+            
 
-          return res.status(200).json({
-              data: {
-                  comment: comment
-              },
-              message: "Post created!"
-          });
-      }
-      req.flash('success', 'Comment published!');
+            return res.status(200).json({
+                data: {
+                    comment: comment
+                },
+                message: "Post created!"
+            });
+        }
 
 
-        res.redirect("back");
-      }
+        req.flash('success', 'Comment published!');
+
+        res.redirect('/');
     }
   } catch (err) {
     console.log("Error", err);
@@ -48,17 +51,16 @@ module.exports.destroy = async (req, res) => {
       $pull: { comments: req.params.id },
     });
     if (post) {
-      if (req.xhr){
+      if (req.xhr) {
         return res.status(200).json({
-            data: {
-                comment_id: req.params.id
-            },
-            message: "Post deleted"
+          data: {
+            comment_id: req.params.id,
+          },
+          message: "Post deleted",
         });
-    }
+      }
 
-
-    req.flash('success', 'Comment deleted!');
+      req.flash("success", "Comment deleted!");
       return res.redirect("back");
     }
   } else {

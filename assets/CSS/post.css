@@ -1,0 +1,76 @@
+/* post.css */
+
+.Post-List {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #dddfe2;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.Post-List p {
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+
+.Post-List small {
+  color: #65676b;
+}
+
+.delete-post-button {
+  color: #65676b;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.delete-post-button:hover {
+  text-decoration: underline;
+}
+
+.post-comments {
+  margin-top: 10px;
+}
+
+.post-comments form {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.post-comments input[type="text"] {
+  flex: 1;
+  padding: 5px;
+  border: 1px solid #dddfe2;
+  border-radius: 5px;
+}
+
+.post-comments input[type="submit"] {
+  margin-left: 10px;
+  padding: 5px 10px;
+  background-color: #1877f2;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.post-comments input[type="submit"]:hover {
+  background-color: #1469c0;
+}
+
+.post-comments-list {
+  margin-top: 10px;
+}
+
+.post-comments-list li {
+  margin-bottom: 5px;
+  padding: 5px;
+  border: 1px solid #dddfe2;
+  border-radius: 5px;
+  background-color: #f0f2f5;
+}
+
+.post-comments-list small {
+  color: #65676b;
+}

@@ -1,3 +1,75 @@
-body{
-    background-color: pink;
-}
+/* post.css */
+
+h1 {
+    color:#1864ab;
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+  
+  #feed-posts {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  #feed-posts h4 {
+    color: #4a148c;
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  #new-post-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #fafafa;
+  }
+  
+  #new-post-form input[type="submit"] {
+    padding: 8px 16px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #new-post-form input[type="submit"]:hover {
+    background-color: #45a049;
+  }
+  /* friend-list.css */
+
+/* friend-list.css */
+
+#user-friends {
+    padding: 20px;
+  }
+  
+  #user-friends h4 {
+    color: #1877f2;
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  #user-friends p {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  #user-friends a {
+    color: #1877f2;
+    text-decoration: none;
+    margin-left: 10px;
+  }
+  
+  #user-friends img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+  
