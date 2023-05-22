@@ -7,9 +7,9 @@ module.exports.home = async function (req, res) {
   try {
     const allPosts = await Post.find()
     .sort('-createdAt')
-    .populate('user').populate({path:'comments', populate: {path: 'user'}});
+    .populate('user').populate({path:'comments', populate: {path: 'user'} }).populate('likes');
     if (allPosts) {
-      const allUsers = await User.find();
+      const allUsers = await User.find()
       if(allUsers){
         return res.render("home", {
           title: "Codeial || Home",
