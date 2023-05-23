@@ -1,5 +1,8 @@
 //using express and defining port
 const express = require("express");
+require('dotenv').config();
+const env = require('./config/environment');
+const logger = require('morgan');
 const cookieParser = require("cookie-parser");
 const app = express();
 const port = 8000;
@@ -21,13 +24,12 @@ const customMware = require('./config/middleware');
 
 // setup the chat server to be used with socket.io..
 const chatServer = require('http').Server(app);
-const ChatSockets = require('./config/chat_sockets').chatSockets(chatServer , {
-  cors: {
-    origin: "http://localhost:5000",
-  }
-});
+const ChatSockets = require('./config/chat_sockets').chatSockets(chatServer );
 chatServer.listen(5000);
 console.log('chat server is listening on port 5000');
+
+const path = require('path');
+
 
 
 
@@ -42,10 +44,12 @@ app.use(express.urlencoded());
 app.use(cookieParser());
 
 //setting assets
-app.use(express.static("assets"));
+app.use(express.static(env.asset_path));
 
 // make the upload path available to browser...
 app.use('/uploads' , express.static(__dirname + '/uploads'));
+
+app.use(logger(env.morgan.mode , env.morgan.options));
 
 // for layout
 const expressLayouts = require("express-ejs-layouts");
@@ -60,7 +64,7 @@ app.use(
   session({
     name: "codeial",
     // TODO secret before deployment in production mode..
-    secret: "blahsomething",
+    secret: env.session_cookie_key,
     saveUninitialized: false,
     resave: false,
     cookie: {
@@ -88,6 +92,7 @@ app.use(customMware.setFlash);
 
 //using express router
 app.use("/", require("./routes"));
+
 
 app.listen(port, function (err) {
   if (err) {

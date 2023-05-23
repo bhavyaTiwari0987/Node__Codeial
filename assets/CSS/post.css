@@ -1,18 +1,35 @@
 /* post.css */
+body{
+  font-family:cursive;
+
+}
 
 .Post-List {
   margin-bottom: 20px;
   padding: 10px;
   border: 1px solid #dddfe2;
   border-radius: 5px;
-  background-color: #fff;
+  background-color: #3bc9db;
   list-style: none;
+  /* height: 400px; */
+  width: 350px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
 }
 
+.post-content{
+  background-color: #faa2c1;
+  height: 300px;
+}
 .Post-List p {
   margin: 0;
   padding: 0;
   line-height: 1.5;
+ 
+  
+  padding: 5px;
 }
 
 .Post-List small {
@@ -31,6 +48,10 @@
 
 .post-comments {
   margin-top: 10px;
+  width: 100%;
+  position: relative;
+  bottom: 0;
+  height: 20%;
 }
 
 .post-comments form {
@@ -62,6 +83,7 @@
 
 .post-comments-list {
   margin-top: 10px;
+  
 }
 
 .post-comments-list li {
@@ -70,6 +92,7 @@
   border: 1px solid #dddfe2;
   border-radius: 5px;
   background-color: #f0f2f5;
+  list-style: none; 
 }
 
 .post-comments-list small {

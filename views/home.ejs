@@ -4,7 +4,7 @@
 
 <div id="home-container">
   <section id="feed-posts">
-    <h4>Posts</h4>
+    <h4>News Feed</h4>
     <% if(locals.user){ %>
     <form action="/posts/create" id="new-post-form" method="POST">
       <textarea
@@ -45,7 +45,7 @@
     <% } %>
 
     <section id="user-list">
-      <h4>Users</h4>
+      <h4>Suggested for you</h4>
       <% for(u of all_users){ %>
       <p>
         <% if(locals.user && u.name == locals.user.name){%>

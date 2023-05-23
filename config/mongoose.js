@@ -1,6 +1,7 @@
 // //require the library
 const mongoose = require("mongoose");
-const db = 'mongodb://bhavyatiwari917:RZLuXvck0tTu1BgF@ac-w5rl1nr-shard-00-00.3eymiaz.mongodb.net:27017,ac-w5rl1nr-shard-00-01.3eymiaz.mongodb.net:27017,ac-w5rl1nr-shard-00-02.3eymiaz.mongodb.net:27017/codeial-node-app?ssl=true&replicaSet=atlas-wxt3nr-shard-0&authSource=admin&retryWrites=true&w=majority';
+const env = require('../config/environment');
+const db = env.db;
 
 // //connect to the database
 mongoose.connect(db);
