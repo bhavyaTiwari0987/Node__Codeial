@@ -30,7 +30,6 @@ module.exports.create = async function (req, res) {
 module.exports.destroy = async (req, res) => {
   try {
     const currentPost = await Post.findById(req.params.id);
-    console.log(currentPost);
     if (currentPost) {
       // .id means object id into string
       if (currentPost.user == req.user.id) {
